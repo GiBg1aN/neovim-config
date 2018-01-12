@@ -109,7 +109,20 @@ function! MyOnBattery()
   return has('unix') && readfile('/sys/class/power_supply/AC/online') == ['0']
 endfunction
 
-if MyOnBattery() 
+function! GetRunningOS()
+  if has("win32")
+    return "win"
+  endif
+  if has("unix")
+    if system('uname')=~'Darwin'
+      return "mac"
+    else
+      return "linux"
+    endif
+  endif
+endfunction
+
+if GetRunningOS() =~ "linux" &&  MyOnBattery() 
   call neomake#configure#automake('w') " When writing a buffer.
 else 
   call neomake#configure#automake('nw', 1000) " When writing a buffer, and on normal mode changes (after 750ms).
