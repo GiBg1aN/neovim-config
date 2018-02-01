@@ -34,3 +34,6 @@
 [submodule "bundle/vim-haskellConcealPlus"]
 	path = bundle/vim-haskellConcealPlus
 	url = https://github.com/enomsg/vim-haskellConcealPlus.git
+[submodule "bundle/vimtex"]
+	path = bundle/vimtex
+	url = https://github.com/lervag/vimtex.git
