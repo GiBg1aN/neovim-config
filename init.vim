@@ -143,6 +143,9 @@ let hscoptions="𝐌𝐄rbhm↱wTt"
 """"""""""""""""""""""""""""""""""""""
 
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#ignore_sources = {}
+let g:deoplete#ignore_sources._ = ['buffer', 'around']
+
 
 """"""""""""""""""""""""""""""""""""""
 """""""""""""" VIMTEX """"""""""""""""
@@ -154,3 +157,11 @@ if !exists('g:deoplete#omni#input_patterns')
   let g:deoplete#omni#input_patterns = {}
 endif
 let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
+
+
+""""""""""""""""""""""""""""""""""""""
+"""""""""" NERD COMMENTER """"""""""""
+""""""""""""""""""""""""""""""""""""""
+
+map <C-_> <leader>cs
+
