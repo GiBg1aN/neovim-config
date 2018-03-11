@@ -20,6 +20,9 @@ set shiftwidth=4
 set softtabstop=4
 set laststatus=2 "statusbar always on
 
+" Disable line numbers in terminal mode
+au TermOpen * setlocal nonumber norelativenumber
+
 " :W sudo saves the file (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
 
@@ -148,6 +151,14 @@ let g:deoplete#ignore_sources._ = ['buffer', 'around']
 
 
 """"""""""""""""""""""""""""""""""""""
+""""""""" DEOPLETE CLANG """""""""""""
+""""""""""""""""""""""""""""""""""""""
+
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
+
+
+""""""""""""""""""""""""""""""""""""""
 """""""""""""" VIMTEX """"""""""""""""
 """"""""""""""""""""""""""""""""""""""
 
@@ -163,5 +174,4 @@ let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 """""""""" NERD COMMENTER """"""""""""
 """"""""""""""""""""""""""""""""""""""
 
-map <C-_> <leader>cs
-
+map <C-_> <leader>c<space>
