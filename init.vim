@@ -59,6 +59,21 @@ vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 
+" Clipboard setup (Linux version, requires xsel)
+let g:clipboard = {
+      \   'name': 'myClipboard',
+      \   'copy': {
+      \      '+': 'xsel --clipboard --input',
+      \      '*': 'xsel --clipboard --input',
+      \   },
+      \   'paste': {
+      \      '+': 'xsel --clipboard --output',
+      \      '*': 'xsel --clipboard --output',
+      \   },
+      \   'cache_enabled': 1,
+      \ }
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""PLUGINS"""""""""""""""""""""""""""""""""""""
@@ -162,7 +177,7 @@ let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 """""""""""""" VIMTEX """"""""""""""""
 """"""""""""""""""""""""""""""""""""""
 
-let g:vimtex_complete_enabled=1
+let g:vimtex_compiler_progname = 'nvr'
 
 if !exists('g:deoplete#omni#input_patterns')
   let g:deoplete#omni#input_patterns = {}
@@ -175,3 +190,11 @@ let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 """"""""""""""""""""""""""""""""""""""
 
 map <C-_> <leader>c<space>
+
+
+""""""""""""""""""""""""""""""""""""""
+""""""""""""""" GOYO """""""""""""""""
+""""""""""""""""""""""""""""""""""""""
+
+let g:goyo_width=83
+
