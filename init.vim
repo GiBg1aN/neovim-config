@@ -166,14 +166,6 @@ let g:deoplete#ignore_sources._ = ['buffer', 'around']
 
 
 """"""""""""""""""""""""""""""""""""""
-""""""""" DEOPLETE CLANG """""""""""""
-""""""""""""""""""""""""""""""""""""""
-
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
-
-
-""""""""""""""""""""""""""""""""""""""
 """""""""""""" VIMTEX """"""""""""""""
 """"""""""""""""""""""""""""""""""""""
 
