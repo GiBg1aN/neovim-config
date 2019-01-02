@@ -1,7 +1,3 @@
-source ~/.config/nvim/bundle/vim-pathogen/autoload/pathogen.vim
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
-
 syntax on
 filetype plugin indent on
 
@@ -26,7 +22,6 @@ au TermOpen * setlocal nonumber norelativenumber
 " :W sudo saves the file (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
 
-
 set so=7 " Set 7 lines to the cursor - when moving vertically using j/k
 set mouse=a " Enable Mouse
 set cmdheight=2 " Height of the command bar
@@ -34,7 +29,6 @@ set hid " A buffer becomes hidden when it is abandoned
 
 " Don't redraw while executing macros (good performance config)
 " set lazyredraw 
-
 
 set magic " For regular expressions turn magic on
 
@@ -74,44 +68,63 @@ let g:clipboard = {
       \ }
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""PLUGINS"""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call plug#begin('~/.local/share/nvim/plugged')
+""""" Completion/Compilation
+Plug	'https://github.com/Shougo/deoplete.nvim.git'
+Plug	'https://github.com/Shougo/neoinclude.vim.git'
+Plug	'https://github.com/neomake/neomake.git'
+Plug	'https://github.com/lervag/vimtex.git'
+Plug	'https://github.com/jiangmiao/auto-pairs.git'
+""""" Utility
+Plug	'https://github.com/kien/ctrlp.vim.git', { 'on': 'CtrlP' }
+Plug	'https://github.com/scrooloose/nerdtree.git', { 'on': 'NERDTreeToggle' }
+Plug	'https://github.com/scrooloose/nerdcommenter.git'
+Plug	'https://github.com/airblade/vim-gitgutter.git'
+Plug    'https://github.com/tpope/vim-speeddating.git'
+""""" Appereance 
+Plug	'https://github.com/joshdick/onedark.vim.git'
+Plug	'https://github.com/junegunn/goyo.vim.git'
+Plug	'https://github.com/itchyny/lightline.vim.git'
+""""" Haskell
+" Plug	'https://github.com/neovimhaskell/haskell-vim.git'
+" Plug	'https://github.com/enomsg/vim-haskellConcealPlus.git'
+" Plug	'https://github.com/parsonsmatt/intero-neovim.git'
+call plug#end()
 
 
 """""""""""""""""""""""
 """""" ONEDARK """"""
 """""""""""""""""""""""
-
 colorscheme onedark
 let g:lightline = {
   \ 'colorscheme': 'onedark',
   \ }
 
+
 """""""""""""""""""""""
 """"" HASKELL VIM """""
 """""""""""""""""""""""
-
-let g:haskell_classic_highlighting = 1
-let g:haskell_indent_if = 3
-let g:haskell_indent_case = 2
-let g:haskell_indent_let = 4
-let g:haskell_indent_where = 6
-let g:haskell_indent_before_where = 2
-let g:haskell_indent_after_bare_where = 2
-let g:haskell_indent_do = 3
-let g:haskell_indent_in = 1
-let g:haskell_indent_guard = 2
-let g:haskell_indent_case_alternative = 1
-let g:cabal_indent_section = 2
+"let g:haskell_classic_highlighting = 1
+"let g:haskell_indent_if = 3
+"let g:haskell_indent_case = 2
+"let g:haskell_indent_let = 4
+"let g:haskell_indent_where = 6
+"let g:haskell_indent_before_where = 2
+"let g:haskell_indent_after_bare_where = 2
+"let g:haskell_indent_do = 3
+"let g:haskell_indent_in = 1
+"let g:haskell_indent_guard = 2
+"let g:haskell_indent_case_alternative = 1
+"let g:cabal_indent_section = 2
 
 
 """""""""""""""""""""""
 """""" NERD TREE """"""
 """""""""""""""""""""""
-
 "Toggle NERDTree with Ctrl-N
 map <C-n> :NERDTreeToggle<CR>
 
@@ -122,7 +135,6 @@ let NERDTreeShowHidden=1
 """""""""""""""""""""""
 """"""" NEOMAKE """""""
 """""""""""""""""""""""
-
 function! MyOnBattery()
   return has('unix') && readfile('/sys/class/power_supply/AC/online') == ['0']
 endfunction
@@ -149,17 +161,16 @@ endif
 " Automatically disables ghcmod-hlint-hdevtools
 " let g:neomake_haskell_enabled_makers = []
 
+
 """"""""""""""""""""""""""""""""""""""
 """""" VIM HASKELL CONCEAL PLUS """"""
 """"""""""""""""""""""""""""""""""""""
-
-let hscoptions="𝐌𝐄rbhm↱wTt"
+"let hscoptions="𝐌𝐄rbhm↱wTt"
 
 
 """"""""""""""""""""""""""""""""""""""
 """"""""""""" DEOPLETE """""""""""""""
 """"""""""""""""""""""""""""""""""""""
-
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#ignore_sources = {}
 let g:deoplete#ignore_sources._ = ['buffer', 'around']
@@ -168,7 +179,6 @@ let g:deoplete#ignore_sources._ = ['buffer', 'around']
 """"""""""""""""""""""""""""""""""""""
 """""""""""""" VIMTEX """"""""""""""""
 """"""""""""""""""""""""""""""""""""""
-
 let g:vimtex_compiler_progname = 'nvr'
 
 if !exists('g:deoplete#omni#input_patterns')
@@ -180,13 +190,11 @@ let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 """"""""""""""""""""""""""""""""""""""
 """""""""" NERD COMMENTER """"""""""""
 """"""""""""""""""""""""""""""""""""""
-
 map <C-_> <leader>c<space>
 
 
 """"""""""""""""""""""""""""""""""""""
 """"""""""""""" GOYO """""""""""""""""
 """"""""""""""""""""""""""""""""""""""
-
 let g:goyo_width=83
 
