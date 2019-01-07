@@ -11,10 +11,10 @@ set softtabstop=4 "already present tabs are considered as 4 spaces
 set scrolloff=7 " Set 7 lines to the cursor - when moving vertically using j/k
 set mouse=a " Enable Mouse
 set cmdheight=2 " Height of the command bar
-set hid " A buffer becomes hidden when it is abandoned
+set hidden " A buffer becomes hidden when it is abandoned
 "set lazyredraw " Don't redraw while executing macros (good performance config)
 set linebreak
-set tw=500 " Line length
+set textwidth=500 " Line length
 
 " Window title
 set titlestring=NVIM
@@ -56,6 +56,12 @@ tnoremap <C-v><Esc> <Esc>
 " Disable line numbers in terminal mode
 au TermOpen * setlocal nonumber norelativenumber
 
+" Scroll terminal history in terminal mode
+tnoremap <M-j> <C-n>
+tnoremap <M-k> <C-p>
+tnoremap <M-h> <Left>
+tnoremap <M-l> <Right>
+
 " Clipboard setup (Linux version, requires xsel)
 let g:clipboard = {
       \   'name': 'myClipboard',
@@ -71,6 +77,7 @@ let g:clipboard = {
       \ }
 
 
+""" My font is Source Code Pro
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""PLUGINS"""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -102,10 +109,10 @@ call plug#end()
 """"""" ONEDARK """""""
 "Use 24-bit (true-color) mode in Vim/Neovim.
 if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    "For Neovim 0.1.3 and 0.1.4
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
-"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799
 if (has("termguicolors"))
     set termguicolors
 endif
@@ -200,3 +207,4 @@ let g:goyo_width=83
 """"""""""""""" SUDA """""""""""""""""
 " :W sudo saves the file (useful for handling the permission-denied error)
 cnoremap W w suda://% 
+
