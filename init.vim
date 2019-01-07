@@ -8,28 +8,27 @@ set smartindent "auto indend
 set expandtab
 set shiftwidth=4 "autoindent tab chars
 set softtabstop=4 "already present tabs are considered as 4 spaces
-
-" Disable line numbers in terminal mode
-au TermOpen * setlocal nonumber norelativenumber
-
-" :W sudo saves the file (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
-
 set scrolloff=7 " Set 7 lines to the cursor - when moving vertically using j/k
 set mouse=a " Enable Mouse
 set cmdheight=2 " Height of the command bar
 set hid " A buffer becomes hidden when it is abandoned
-
-" Don't redraw while executing macros (good performance config)
-" set lazyredraw 
-
-" Line length
+"set lazyredraw " Don't redraw while executing macros (good performance config)
 set linebreak
-set tw=500
+set tw=500 " Line length
 
 " Window title
 set titlestring=NVIM
 set title
+
+" Return to last edit position when opening files
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" Edit/Save vimrc file
+nmap <silent> <Leader>ev :e $MYVIMRC<CR>
+nmap <silent> <Leader>sv :so $MYVIMRC<CR>
+
+" Filetype based options
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 
 " Moving between windows
 tnoremap <C-j> <C-\><C-n><C-w>j
@@ -41,9 +40,6 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
-" Return to last edit position when opening files
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
 " Move a line of text using ALT+[jk] or Command+[jk] on mac
 nmap <M-j> mz:m+<cr>`z
 nmap <M-k> mz:m-2<cr>`z
@@ -53,8 +49,12 @@ vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 "Y to works from the cursor to the end of line (not Vi-compatible) use
 map Y y$
 
-"Escape from terminal mode
+"Escape from terminal mode and escape 'Esc' key in terminal mode
 tnoremap <Esc> <C-\><C-n>
+tnoremap <C-v><Esc> <Esc>
+
+" Disable line numbers in terminal mode
+au TermOpen * setlocal nonumber norelativenumber
 
 " Clipboard setup (Linux version, requires xsel)
 let g:clipboard = {
@@ -69,7 +69,6 @@ let g:clipboard = {
       \   },
       \   'cache_enabled': 1,
       \ }
-
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -88,6 +87,7 @@ Plug	'https://github.com/scrooloose/nerdtree.git', { 'on': 'NERDTreeToggle' }
 Plug	'https://github.com/scrooloose/nerdcommenter.git'
 Plug	'https://github.com/airblade/vim-gitgutter.git'
 Plug    'https://github.com/tpope/vim-speeddating.git'
+Plug    'https://github.com/lambdalisue/suda.vim'
 """"" Appereance 
 Plug	'https://github.com/joshdick/onedark.vim.git'
 Plug	'https://github.com/junegunn/goyo.vim.git', {'on': 'Goyo'}
@@ -99,17 +99,13 @@ Plug	'https://github.com/itchyny/lightline.vim.git'
 call plug#end()
 
 
-"""""""""""""""""""""""
-"""""" ONEDARK """"""
-"""""""""""""""""""""""
+""""""" ONEDARK """""""
 "Use 24-bit (true-color) mode in Vim/Neovim.
 if (has("nvim"))
     "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
 if (has("termguicolors"))
     set termguicolors
 endif
@@ -123,9 +119,7 @@ let g:lightline = {
 hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
 
 
-"""""""""""""""""""""""
 """"" HASKELL VIM """""
-"""""""""""""""""""""""
 "let g:haskell_classic_highlighting = 1
 "let g:haskell_indent_if = 3
 "let g:haskell_indent_case = 2
@@ -140,9 +134,7 @@ hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gu
 "let g:cabal_indent_section = 2
 
 
-"""""""""""""""""""""""
 """""" NERD TREE """"""
-"""""""""""""""""""""""
 "Toggle NERDTree with Ctrl-N
 map <C-n> :NERDTreeToggle<CR>
 
@@ -150,9 +142,7 @@ map <C-n> :NERDTreeToggle<CR>
 "let NERDTreeShowHidden=1
 
 
-"""""""""""""""""""""""
 """"""" NEOMAKE """""""
-"""""""""""""""""""""""
 function! MyOnBattery()
   return has('unix') && readfile('/sys/class/power_supply/AC/online') == ['0']
 endfunction
@@ -180,23 +170,17 @@ endif
 " let g:neomake_haskell_enabled_makers = []
 
 
-""""""""""""""""""""""""""""""""""""""
 """""" VIM HASKELL CONCEAL PLUS """"""
-""""""""""""""""""""""""""""""""""""""
 "let hscoptions="𝐌𝐄rbhm↱wTt"
 
 
-""""""""""""""""""""""""""""""""""""""
 """"""""""""" DEOPLETE """""""""""""""
-""""""""""""""""""""""""""""""""""""""
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#ignore_sources = {}
 let g:deoplete#ignore_sources._ = ['buffer', 'around']
 
 
-""""""""""""""""""""""""""""""""""""""
 """""""""""""" VIMTEX """"""""""""""""
-""""""""""""""""""""""""""""""""""""""
 let g:vimtex_compiler_progname = 'nvr'
 
 if !exists('g:deoplete#omni#input_patterns')
@@ -205,14 +189,14 @@ endif
 let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 
 
-""""""""""""""""""""""""""""""""""""""
 """""""""" NERD COMMENTER """"""""""""
-""""""""""""""""""""""""""""""""""""""
 map <C-_> <leader>c<space>
 
 
-""""""""""""""""""""""""""""""""""""""
 """"""""""""""" GOYO """""""""""""""""
-""""""""""""""""""""""""""""""""""""""
 let g:goyo_width=83
 
+
+""""""""""""""" SUDA """""""""""""""""
+" :W sudo saves the file (useful for handling the permission-denied error)
+cnoremap W w suda://% 
