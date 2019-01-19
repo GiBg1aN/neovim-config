@@ -28,7 +28,9 @@ nmap <silent> <Leader>ev :e $MYVIMRC<CR>
 nmap <silent> <Leader>sv :so $MYVIMRC<CR>
 
 " Filetype based options
+let g:tex_flavor = "latex"
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType tex setlocal textwidth=83
 
 " Moving between windows
 tnoremap <C-j> <C-\><C-n><C-w>j
@@ -83,26 +85,27 @@ let g:clipboard = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.local/share/nvim/plugged')
 """"" Completion/Compilation
-Plug	'https://github.com/Shougo/deoplete.nvim.git', { 'do': ':UpdateRemotePlugins' }
-Plug	'https://github.com/Shougo/neoinclude.vim.git'
-Plug	'https://github.com/neomake/neomake.git'
-Plug	'https://github.com/lervag/vimtex.git'
-Plug	'https://github.com/jiangmiao/auto-pairs.git'
+Plug	'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug    'davidhalter/jedi-vim', { 'do': ':UpdateRemotePlugins' }
+Plug	'Shougo/neoinclude.vim'
+Plug	'neomake/neomake'
+Plug	'lervag/vimtex', { 'do': ':UpdateRemotePlugins' }
+Plug	'jiangmiao/auto-pairs'
 """"" Utility
-Plug	'https://github.com/kien/ctrlp.vim.git'
-Plug	'https://github.com/scrooloose/nerdtree.git', { 'on': 'NERDTreeToggle' }
-Plug	'https://github.com/scrooloose/nerdcommenter.git'
-Plug	'https://github.com/airblade/vim-gitgutter.git'
-Plug    'https://github.com/tpope/vim-speeddating.git'
-Plug    'https://github.com/lambdalisue/suda.vim'
+Plug	'kien/ctrlp.vim'
+Plug	'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug	'scrooloose/nerdcommenter'
+Plug	'airblade/vim-gitgutter'
+Plug    'tpope/vim-speeddating'
+Plug    'lambdalisue/suda.vim'
 """"" Appereance 
-Plug	'https://github.com/joshdick/onedark.vim.git'
-Plug	'https://github.com/junegunn/goyo.vim.git', {'on': 'Goyo'}
-Plug	'https://github.com/itchyny/lightline.vim.git'
+Plug	'joshdick/onedark.vim'
+Plug	'junegunn/goyo.vim', {'on': 'Goyo'}
+Plug	'itchyny/lightline.vim'
 """"" Haskell
-" Plug	'https://github.com/neovimhaskell/haskell-vim.git'
-" Plug	'https://github.com/enomsg/vim-haskellConcealPlus.git'
-" Plug	'https://github.com/parsonsmatt/intero-neovim.git'
+"Plug	'neovimhaskell/haskell-vim'
+"Plug	'enomsg/vim-haskellConcealPlus'
+"Plug	'parsonsmatt/intero-neovim'
 call plug#end()
 
 
@@ -144,7 +147,6 @@ hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gu
 """""" NERD TREE """"""
 "Toggle NERDTree with Ctrl-N
 map <C-n> :NERDTreeToggle<CR>
-
 "Show hidden files in NERDTree
 "let NERDTreeShowHidden=1
 
@@ -170,7 +172,7 @@ endfunction
 if GetRunningOS() =~ "linux" &&  MyOnBattery() 
   call neomake#configure#automake('w') " When writing a buffer.
 else 
-  call neomake#configure#automake('nw', 1000) " When writing a buffer, and on normal mode changes (after 750ms).
+  call neomake#configure#automake('nw', 1000) " When writing a buffer, and on normal mode changes (after 1s).
 endif
 
 " Automatically disables ghcmod-hlint-hdevtools
@@ -183,18 +185,38 @@ endif
 
 """"""""""""" DEOPLETE """""""""""""""
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#ignore_sources = {}
-let g:deoplete#ignore_sources._ = ['buffer', 'around']
+
+" Disable completion for plain text/git files
+autocmd FileType text call deoplete#disable()
+autocmd FileType gitcommit call deoplete#disable()
+
+" Popup color
+highlight Pmenu ctermbg=8 guibg=#606060
+highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
+highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
+
+" <TAB> selection
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+endfunction
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+
+""""""""""""" VIM-JEDI """"""""""""""
+let g:python3_host_prog = '/home/gibg1an/.conda/envs/tensorflow/bin/python'
+autocmd FileType python call deoplete#disable()
 
 
 """""""""""""" VIMTEX """"""""""""""""
 let g:vimtex_compiler_progname = 'nvr'
 
-if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns = {}
-endif
-let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
+call deoplete#custom#var('omni', 'input_patterns', {
+      \ 'tex': g:vimtex#re#deoplete
+      \})
 
+" Remove surrounding text source completion for plain tex files
+autocmd FileType tex let g:deoplete#ignore_sources={'_': ['buffer', 'around']}
 
 """""""""" NERD COMMENTER """"""""""""
 map <C-_> <leader>c<space>
