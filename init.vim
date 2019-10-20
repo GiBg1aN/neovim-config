@@ -86,7 +86,8 @@ let g:clipboard = {
 call plug#begin('~/.local/share/nvim/plugged')
 """"" Completion/Compilation
 Plug	'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug    'davidhalter/jedi-vim', { 'do': ':UpdateRemotePlugins' }
+"Plug    'davidhalter/jedi-vim', { 'do': ':UpdateRemotePlugins', 'commit': 'b9f83175951654256cff41737841b4abc0c9266d' }
+Plug    'https://github.com/blueyed/jedi-vim/', { 'do': ':UpdateRemotePlugins', 'branch': 'completions-opt', 'commit': 'a28da90f28e123c3ec4e49a0c9dfafe781500207' }
 Plug	'Shougo/neoinclude.vim'
 Plug	'neomake/neomake'
 Plug	'lervag/vimtex', { 'do': ':UpdateRemotePlugins' }
@@ -102,6 +103,7 @@ Plug    'lambdalisue/suda.vim'
 Plug	'joshdick/onedark.vim'
 Plug	'junegunn/goyo.vim', {'on': 'Goyo'}
 Plug	'itchyny/lightline.vim'
+Plug    'Yggdroot/indentLine'
 """"" Haskell
 "Plug	'neovimhaskell/haskell-vim'
 "Plug	'enomsg/vim-haskellConcealPlus'
@@ -190,11 +192,6 @@ let g:deoplete#enable_at_startup = 1
 autocmd FileType text call deoplete#disable()
 autocmd FileType gitcommit call deoplete#disable()
 
-" Popup color
-highlight Pmenu ctermbg=8 guibg=#606060
-highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
-highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
-
 " <TAB> selection
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
@@ -204,7 +201,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 
 """"""""""""" VIM-JEDI """"""""""""""
-let g:python3_host_prog = '/home/gibg1an/.conda/envs/tensorflow/bin/python'
+let g:python3_host_prog = '/home/gibg1an/.conda/envs/torch/bin/python'
 autocmd FileType python call deoplete#disable()
 
 
@@ -229,4 +226,8 @@ let g:goyo_width=83
 """"""""""""""" SUDA """""""""""""""""
 " :W sudo saves the file (useful for handling the permission-denied error)
 cnoremap W w suda://% 
+
+
+"""""""""" VIM INDENT LINE """""""""""
+let g:indentLine_enabled = 0
 
