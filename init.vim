@@ -90,7 +90,6 @@ Plug	'jiangmiao/auto-pairs'
 """"" Utility
 Plug    'simnalamburt/vim-mundo'
 Plug	'ctrlpvim/ctrlp.vim'
-Plug	'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug	'scrooloose/nerdcommenter'
 Plug	'airblade/vim-gitgutter'
 Plug    'lambdalisue/suda.vim'
@@ -100,10 +99,6 @@ Plug	'junegunn/goyo.vim', {'on': 'Goyo'}
 Plug	'itchyny/lightline.vim'
 Plug    'Yggdroot/indentLine'
 Plug    'psliwka/vim-smoothie'
-""""" Haskell
-"Plug	'neovimhaskell/haskell-vim'
-"Plug	'enomsg/vim-haskellConcealPlus'
-"Plug	'parsonsmatt/intero-neovim'
 call plug#end()
 
 
@@ -126,27 +121,6 @@ let g:lightline = {
 
 " Terminal cursor in normal mode
 hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
-
-
-""""" HASKELL VIM """""
-"let g:haskell_classic_highlighting = 1
-"let g:haskell_indent_if = 3
-"let g:haskell_indent_case = 2
-"let g:haskell_indent_let = 4
-"let g:haskell_indent_where = 6
-"let g:haskell_indent_before_where = 2
-"let g:haskell_indent_after_bare_where = 2
-"let g:haskell_indent_do = 3
-"let g:haskell_indent_in = 1
-"let g:haskell_indent_guard = 2
-"let g:haskell_indent_case_alternative = 1
-"let g:cabal_indent_section = 2
-
-
-"""""" NERD TREE """"""
-"Toggle NERDTree with Ctrl-N
-map <C-n> :NERDTreeToggle<CR>
-"Show hidden files in NERDTree let NERDTreeShowHidden=1
 
 
 """"""" NEOMAKE """""""
@@ -172,13 +146,6 @@ if GetRunningOS() =~ "linux" &&  MyOnBattery()
 else 
   call neomake#configure#automake('nw', 1000) " When writing a buffer, and on normal mode changes (after 1s).
 endif
-
-" Automatically disables ghcmod-hlint-hdevtools
-" let g:neomake_haskell_enabled_makers = []
-
-
-"""""" VIM HASKELL CONCEAL PLUS """"""
-"let hscoptions="𝐌𝐄rbhm↱wTt"
 
 
 """"""""""""" DEOPLETE """""""""""""""
