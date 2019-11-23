@@ -4,8 +4,8 @@ set number "Line number
 set showmode "Show Vim mode on last line
 set ignorecase "no case sensitive in pattern
 set smartcase "case sensitive only when caps is used
-set smartindent "auto indend
-set expandtab
+set smartindent "auto indent
+set expandtab "replace tabs with spaces
 set shiftwidth=4 "autoindent tab chars
 set softtabstop=4 "already present tabs are considered as 4 spaces
 set scrolloff=7 " Set 7 lines to the cursor - when moving vertically using j/k
@@ -42,12 +42,6 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
 "Y to works from the cursor to the end of line (not Vi-compatible) use
 map Y y$
 
@@ -58,11 +52,13 @@ tnoremap <C-v><Esc> <Esc>
 " Disable line numbers in terminal mode
 au TermOpen * setlocal nonumber norelativenumber
 
-" Scroll terminal history in terminal mode
+" Scroll terminal history in terminal/command mode
 tnoremap <M-j> <C-n>
 tnoremap <M-k> <C-p>
 tnoremap <M-h> <Left>
 tnoremap <M-l> <Right>
+cnoremap <M-j> <C-n>
+cnoremap <M-k> <C-p>
 
 " Clipboard setup (Linux version, requires xsel)
 let g:clipboard = {
@@ -86,24 +82,24 @@ let g:clipboard = {
 call plug#begin('~/.local/share/nvim/plugged')
 """"" Completion/Compilation
 Plug	'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"Plug    'davidhalter/jedi-vim', { 'do': ':UpdateRemotePlugins', 'commit': 'b9f83175951654256cff41737841b4abc0c9266d' }
-Plug    'https://github.com/blueyed/jedi-vim/', { 'do': ':UpdateRemotePlugins', 'branch': 'completions-opt', 'commit': 'a28da90f28e123c3ec4e49a0c9dfafe781500207' }
+Plug    'davidhalter/jedi-vim', { 'do': ':UpdateRemotePlugins' }
 Plug	'Shougo/neoinclude.vim'
 Plug	'neomake/neomake'
 Plug	'lervag/vimtex', { 'do': ':UpdateRemotePlugins' }
 Plug	'jiangmiao/auto-pairs'
 """"" Utility
-Plug	'kien/ctrlp.vim'
+Plug    'simnalamburt/vim-mundo'
+Plug	'ctrlpvim/ctrlp.vim'
 Plug	'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug	'scrooloose/nerdcommenter'
 Plug	'airblade/vim-gitgutter'
-Plug    'tpope/vim-speeddating'
 Plug    'lambdalisue/suda.vim'
 """"" Appereance 
 Plug	'joshdick/onedark.vim'
 Plug	'junegunn/goyo.vim', {'on': 'Goyo'}
 Plug	'itchyny/lightline.vim'
 Plug    'Yggdroot/indentLine'
+Plug    'psliwka/vim-smoothie'
 """"" Haskell
 "Plug	'neovimhaskell/haskell-vim'
 "Plug	'enomsg/vim-haskellConcealPlus'
@@ -128,6 +124,7 @@ let g:lightline = {
   \ 'colorscheme': 'onedark',
   \ }
 
+" Terminal cursor in normal mode
 hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
 
 
@@ -149,8 +146,7 @@ hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gu
 """""" NERD TREE """"""
 "Toggle NERDTree with Ctrl-N
 map <C-n> :NERDTreeToggle<CR>
-"Show hidden files in NERDTree
-"let NERDTreeShowHidden=1
+"Show hidden files in NERDTree let NERDTreeShowHidden=1
 
 
 """"""" NEOMAKE """""""
@@ -215,6 +211,7 @@ call deoplete#custom#var('omni', 'input_patterns', {
 " Remove surrounding text source completion for plain tex files
 autocmd FileType tex let g:deoplete#ignore_sources={'_': ['buffer', 'around']}
 
+
 """""""""" NERD COMMENTER """"""""""""
 map <C-_> <leader>c<space>
 
@@ -229,5 +226,8 @@ cnoremap W w suda://%
 
 
 """""""""" VIM INDENT LINE """""""""""
-let g:indentLine_enabled = 0
+"let g:indentLine_enabled = 0
 
+
+""""""""""""""" MUNDO """"""""""""""""
+nnoremap <F5> :MundoToggle<CR>
