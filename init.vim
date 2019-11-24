@@ -94,12 +94,11 @@ Plug    'psliwka/vim-smoothie'
 call plug#end()
 
 
+"""" VIM-GITGUTTER """"
+set updatetime=2000
+
+
 """"""" ONEDARK """""""
-"Use 24-bit (true-color) mode in Vim/Neovim.
-if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
 "For Neovim > 0.1.5 and Vim > patch 7.4.1799
 if (has("termguicolors"))
     set termguicolors
@@ -116,28 +115,7 @@ hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gu
 
 
 """"""" NEOMAKE """""""
-function! MyOnBattery()
-  return has('unix') && readfile('/sys/class/power_supply/AC/online') == ['0']
-endfunction
-
-function! GetRunningOS()
-  if has("win32")
-    return "win"
-  endif
-  if has("unix")
-    if system('uname')=~'Darwin'
-      return "mac"
-    else
-      return "linux"
-    endif
-  endif
-endfunction
-
-if GetRunningOS() =~ "linux" &&  MyOnBattery() 
-  call neomake#configure#automake('w') " When writing a buffer.
-else 
-  call neomake#configure#automake('nw', 1000) " When writing a buffer, and on normal mode changes (after 1s).
-endif
+call neomake#configure#automake('nrwi', 1000) "when writing or reading a buffer, and on changes in insert and normal mode
 
 
 """"""""""""" DEOPLETE """""""""""""""
