@@ -1,8 +1,9 @@
 syntax on
 set history=500 "Max search pattern to store
 set number "Line number
-set showmode "Show Vim mode on last line
+set noshowmode "Show Vim mode on last line
 set ignorecase "no case sensitive in pattern
+set inccommand=nosplit "real_time substitute command
 set smartcase "case sensitive only when caps is used
 set smartindent "auto indent
 set expandtab "replace tabs with spaces
@@ -12,7 +13,7 @@ set scrolloff=7 " Set 7 lines to the cursor - when moving vertically using j/k
 set mouse=a " Enable Mouse
 set cmdheight=2 " Height of the command bar
 set hidden " A buffer becomes hidden when it is abandoned
-"set lazyredraw " Don't redraw while executing macros (good performance config)
+set lazyredraw " Don't redraw while executing macros (good performance config)
 set linebreak
 set textwidth=500 " Line length
 
@@ -32,7 +33,7 @@ let g:tex_flavor = "latex"
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType tex setlocal textwidth=83
 
-" Moving between windows
+" Moving between windows in normal and terminal mode
 tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-h> <C-\><C-n><C-w>h
@@ -47,18 +48,9 @@ map Y y$
 
 "Escape from terminal mode and escape 'Esc' key in terminal mode
 tnoremap <Esc> <C-\><C-n>
-tnoremap <C-v><Esc> <Esc>
 
 " Disable line numbers in terminal mode
 au TermOpen * setlocal nonumber norelativenumber
-
-" Scroll terminal history in terminal/command mode
-tnoremap <M-j> <C-n>
-tnoremap <M-k> <C-p>
-tnoremap <M-h> <Left>
-tnoremap <M-l> <Right>
-cnoremap <M-j> <C-n>
-cnoremap <M-k> <C-p>
 
 " Clipboard setup (Linux version, requires xsel)
 let g:clipboard = {
@@ -193,6 +185,7 @@ cnoremap W w suda://%
 
 
 """""""""" VIM INDENT LINE """""""""""
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 "let g:indentLine_enabled = 0
 
 
