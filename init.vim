@@ -29,7 +29,7 @@ nmap <silent> <Leader>ev :e $MYVIMRC<CR>
 nmap <silent> <Leader>sv :so $MYVIMRC<CR>
 
 " Filetype based options
-let g:tex_flavor = "latex"
+let g:tex_flavor="latex"
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType tex setlocal textwidth=83
 
@@ -141,7 +141,7 @@ endif
 
 
 """"""""""""" DEOPLETE """""""""""""""
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup=1
 
 " Disable completion for plain text/git files
 autocmd FileType text call deoplete#disable()
@@ -156,12 +156,12 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 
 """"""""""""" VIM-JEDI """"""""""""""
-let g:python3_host_prog = '/home/gibg1an/.conda/envs/torch/bin/python'
+let g:python3_host_prog='/home/gibg1an/.conda/envs/torch/bin/python'
 autocmd FileType python call deoplete#disable()
 
 
 """""""""""""" VIMTEX """"""""""""""""
-let g:vimtex_compiler_progname = 'nvr'
+let g:vimtex_compiler_progname='nvr'
 
 call deoplete#custom#var('omni', 'input_patterns', {
       \ 'tex': g:vimtex#re#deoplete
@@ -186,7 +186,7 @@ cnoremap W w suda://%
 
 """""""""" VIM INDENT LINE """""""""""
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-"let g:indentLine_enabled = 0
+au TermOpen * let g:indentLine_bufTypeExclude = ['help', 'terminal']
 
 
 """"""""""""""" MUNDO """"""""""""""""
