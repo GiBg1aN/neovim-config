@@ -1,6 +1,6 @@
 syntax on
 set history=500 "Max search pattern to store
-set number "Line number
+set relativenumber "Line number
 set noshowmode "Show Vim mode on last line
 set ignorecase "no case sensitive in pattern
 set inccommand=nosplit "real_time substitute command
@@ -47,7 +47,9 @@ nnoremap <C-l> <C-w>l
 map Y y$
 
 "Escape from terminal mode and escape 'Esc' key in terminal mode
-tnoremap <Esc> <C-\><C-n>
+"tnoremap <Esc> <C-\><C-n>
+tnoremap <Leader><ESC> <C-\><C-n>
+
 
 " Disable line numbers in terminal mode
 au TermOpen * setlocal nonumber norelativenumber
@@ -134,7 +136,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 
 """"""""""""" VIM-JEDI """"""""""""""
-let g:python3_host_prog='/home/gibg1an/.conda/envs/torch/bin/python'
+let g:python3_host_prog='/opt/anaconda/envs/save/bin/python'
 autocmd FileType python call deoplete#disable()
 
 
@@ -164,7 +166,7 @@ cnoremap W w suda://%
 
 """""""""" VIM INDENT LINE """""""""""
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-au TermOpen * let g:indentLine_bufTypeExclude = ['help', 'terminal']
+let g:indentLine_bufTypeExclude = ['help', 'terminal']
 
 
 """"""""""""""" MUNDO """"""""""""""""
