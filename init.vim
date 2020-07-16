@@ -78,6 +78,7 @@ Plug    'davidhalter/jedi-vim', { 'do': ':UpdateRemotePlugins' }
 Plug	'Shougo/neoinclude.vim'
 Plug	'neomake/neomake'
 Plug	'jiangmiao/auto-pairs'
+Plug    'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 """"" Utility
 Plug    'simnalamburt/vim-mundo'
 Plug	'ctrlpvim/ctrlp.vim'
