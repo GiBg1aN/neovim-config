@@ -79,8 +79,8 @@ Plug	'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug    'davidhalter/jedi-vim', { 'do': ':UpdateRemotePlugins' }
 Plug	'Shougo/neoinclude.vim'
 Plug	'neomake/neomake'
-Plug	'lervag/vimtex', { 'do': ':UpdateRemotePlugins' }
 Plug	'jiangmiao/auto-pairs'
+Plug    'pangloss/vim-javascript'
 """"" Utility
 Plug    'simnalamburt/vim-mundo'
 Plug	'ctrlpvim/ctrlp.vim'
@@ -89,7 +89,6 @@ Plug	'airblade/vim-gitgutter'
 Plug    'lambdalisue/suda.vim'
 """"" Appereance 
 Plug	'joshdick/onedark.vim'
-Plug	'junegunn/goyo.vim', {'on': 'Goyo'}
 Plug	'itchyny/lightline.vim'
 Plug    'Yggdroot/indentLine'
 Plug    'psliwka/vim-smoothie'
@@ -136,27 +135,12 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 
 """"""""""""" VIM-JEDI """"""""""""""
-let g:python3_host_prog='/opt/anaconda/envs/save/bin/python'
+let g:python3_host_prog='/home/gibg1an/.conda/envs/save/bin/python'
 autocmd FileType python call deoplete#disable()
-
-
-"""""""""""""" VIMTEX """"""""""""""""
-let g:vimtex_compiler_progname='nvr'
-
-call deoplete#custom#var('omni', 'input_patterns', {
-      \ 'tex': g:vimtex#re#deoplete
-      \})
-
-" Remove surrounding text source completion for plain tex files
-autocmd FileType tex let g:deoplete#ignore_sources={'_': ['buffer', 'around']}
 
 
 """""""""" NERD COMMENTER """"""""""""
 map <C-_> <leader>c<space>
-
-
-""""""""""""""" GOYO """""""""""""""""
-let g:goyo_width=83
 
 
 """"""""""""""" SUDA """""""""""""""""
