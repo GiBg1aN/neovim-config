@@ -1,6 +1,6 @@
 syntax on
 set history=500 "Max search pattern to store
-set relativenumber "Line number
+set number "Line number
 set noshowmode "Show Vim mode on last line
 set ignorecase "no case sensitive in pattern
 set inccommand=nosplit "real_time substitute command
@@ -76,11 +76,14 @@ let g:clipboard = {
 call plug#begin('~/.local/share/nvim/plugged')
 """"" Completion/Compilation
 Plug	'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug    'deoplete-plugins/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
 Plug    'davidhalter/jedi-vim', { 'do': ':UpdateRemotePlugins' }
 Plug	'Shougo/neoinclude.vim'
 Plug	'neomake/neomake'
 Plug	'jiangmiao/auto-pairs'
-Plug    'pangloss/vim-javascript'
+Plug    'yuezk/vim-js'
+Plug    'maxmellon/vim-jsx-pretty'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 """"" Utility
 Plug    'simnalamburt/vim-mundo'
 Plug	'ctrlpvim/ctrlp.vim'
@@ -117,6 +120,25 @@ hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gu
 
 """"""" NEOMAKE """""""
 call neomake#configure#automake('nrwi', 1000) "when writing or reading a buffer, and on changes in insert and normal mode
+function! NeomakeESlintChecker()
+  let l:npm_bin = ''
+  let l:eslint = 'eslint'
+
+  if executable('npm')
+    let l:npm_bin = split(system('npm bin'), '\n')[0]
+  endif
+
+  if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
+    let l:eslint = l:npm_bin . '/eslint'
+  endif
+
+  let b:neomake_javascript_eslint_exe = l:eslint
+endfunction
+autocmd FileType javascript :call NeomakeESlintChecker()
+autocmd FileType javascriptreact :call NeomakeESlintChecker()
+autocmd FileType javascriptreact setlocal shiftwidth=2 tabstop=2
+
+autocmd! BufWritePost,BufReadPost * Neomake
 
 
 """"""""""""" DEOPLETE """""""""""""""
@@ -136,7 +158,8 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 """"""""""""" VIM-JEDI """"""""""""""
 let g:python3_host_prog='/home/gibg1an/.conda/envs/save/bin/python'
-autocmd FileType python call deoplete#disable()
+"autocmd FileType python call deoplete#disable()
+let g:jedi#completions_enabled = 0
 
 
 """""""""" NERD COMMENTER """"""""""""
