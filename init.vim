@@ -55,18 +55,18 @@ tnoremap <Leader><ESC> <C-\><C-n>
 au TermOpen * setlocal nonumber norelativenumber
 
 " Clipboard setup (Linux version, requires xsel)
-let g:clipboard = {
-      \   'name': 'myClipboard',
-      \   'copy': {
-      \      '+': 'xsel --clipboard --input',
-      \      '*': 'xsel --clipboard --input',
-      \   },
-      \   'paste': {
-      \      '+': 'xsel --clipboard --output',
-      \      '*': 'xsel --clipboard --output',
-      \   },
-      \   'cache_enabled': 1,
-      \ }
+"let g:clipboard = {
+"      \   'name': 'myClipboard',
+"      \   'copy': {
+"      \      '+': 'xsel --clipboard --input',
+"      \      '*': 'xsel --clipboard --input',
+"      \   },
+"      \   'paste': {
+"      \      '+': 'xsel --clipboard --output',
+"      \      '*': 'xsel --clipboard --output',
+"      \   },
+"      \   'cache_enabled': 1,
+"      \ }
 
 
 """ My font is Source Code Pro
@@ -89,7 +89,7 @@ Plug    'simnalamburt/vim-mundo'
 Plug	'ctrlpvim/ctrlp.vim'
 Plug	'scrooloose/nerdcommenter'
 Plug	'airblade/vim-gitgutter'
-Plug    'lambdalisue/suda.vim'
+" Plug    'lambdalisue/suda.vim'
 """"" Appereance 
 Plug	'joshdick/onedark.vim'
 Plug	'itchyny/lightline.vim'
@@ -157,7 +157,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 
 """"""""""""" VIM-JEDI """"""""""""""
-let g:python3_host_prog='/home/gibg1an/.conda/envs/save/bin/python'
+let g:python3_host_prog='C:\Users\Gianluca\AppData\Local\Programs\Python\Python310\python.exe'
 "autocmd FileType python call deoplete#disable()
 let g:jedi#completions_enabled = 0
 
@@ -168,7 +168,7 @@ map <C-_> <leader>c<space>
 
 """"""""""""""" SUDA """""""""""""""""
 " :W sudo saves the file (useful for handling the permission-denied error)
-cnoremap W w suda://% 
+" cnoremap W w suda://%
 
 
 """""""""" VIM INDENT LINE """""""""""
