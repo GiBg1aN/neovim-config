@@ -81,9 +81,7 @@ Plug    'davidhalter/jedi-vim', { 'do': ':UpdateRemotePlugins' }
 Plug	'Shougo/neoinclude.vim'
 Plug	'neomake/neomake'
 Plug	'jiangmiao/auto-pairs'
-Plug    'yuezk/vim-js'
-Plug    'maxmellon/vim-jsx-pretty'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug    'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 """"" Utility
 Plug    'simnalamburt/vim-mundo'
 Plug	'ctrlpvim/ctrlp.vim'
@@ -120,24 +118,6 @@ hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gu
 
 """"""" NEOMAKE """""""
 call neomake#configure#automake('nrwi', 1000) "when writing or reading a buffer, and on changes in insert and normal mode
-function! NeomakeESlintChecker()
-  let l:npm_bin = ''
-  let l:eslint = 'eslint'
-
-  if executable('npm')
-    let l:npm_bin = split(system('npm bin'), '\n')[0]
-  endif
-
-  if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
-    let l:eslint = l:npm_bin . '/eslint'
-  endif
-
-  let b:neomake_javascript_eslint_exe = l:eslint
-endfunction
-autocmd FileType javascript :call NeomakeESlintChecker()
-autocmd FileType javascriptreact :call NeomakeESlintChecker()
-autocmd FileType javascriptreact setlocal shiftwidth=2 tabstop=2
-
 autocmd! BufWritePost,BufReadPost * Neomake
 
 
