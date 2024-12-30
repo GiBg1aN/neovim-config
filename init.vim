@@ -30,8 +30,7 @@ nmap <silent> <Leader>sv :so $MYVIMRC<CR>
 
 " Filetype based options
 let g:tex_flavor="latex"
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
-autocmd FileType tex setlocal textwidth=83
+autocmd FileType cpp setlocal shiftwidth=2 tabstop=2
 
 " Moving between windows in normal and terminal mode
 tnoremap <C-j> <C-\><C-n><C-w>j
@@ -54,20 +53,6 @@ tnoremap <Leader><ESC> <C-\><C-n>
 " Disable line numbers in terminal mode
 au TermOpen * setlocal nonumber norelativenumber
 
-" Clipboard setup (Linux version, requires xsel)
-"let g:clipboard = {
-"      \   'name': 'myClipboard',
-"      \   'copy': {
-"      \      '+': 'xsel --clipboard --input',
-"      \      '*': 'xsel --clipboard --input',
-"      \   },
-"      \   'paste': {
-"      \      '+': 'xsel --clipboard --output',
-"      \      '*': 'xsel --clipboard --output',
-"      \   },
-"      \   'cache_enabled': 1,
-"      \ }
-
 
 """ My font is Source Code Pro
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -78,16 +63,12 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug	'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug    'deoplete-plugins/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
 Plug    'davidhalter/jedi-vim', { 'do': ':UpdateRemotePlugins' }
-Plug	'Shougo/neoinclude.vim'
-Plug	'neomake/neomake'
+Plug    'deoplete-plugins/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
 Plug	'jiangmiao/auto-pairs'
-Plug    'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 """"" Utility
 Plug    'simnalamburt/vim-mundo'
-Plug	'ctrlpvim/ctrlp.vim'
 Plug	'scrooloose/nerdcommenter'
 Plug	'airblade/vim-gitgutter'
-" Plug    'lambdalisue/suda.vim'
 """"" Appereance 
 Plug	'joshdick/onedark.vim'
 Plug	'itchyny/lightline.vim'
@@ -95,10 +76,8 @@ Plug    'Yggdroot/indentLine'
 Plug    'psliwka/vim-smoothie'
 call plug#end()
 
-
 """" VIM-GITGUTTER """"
 set updatetime=2000
-
 
 """"""" ONEDARK """""""
 "For Neovim > 0.1.5 and Vim > patch 7.4.1799
@@ -114,12 +93,6 @@ let g:lightline = {
 
 " Terminal cursor in normal mode
 hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
-
-
-""""""" NEOMAKE """""""
-call neomake#configure#automake('nrwi', 1000) "when writing or reading a buffer, and on changes in insert and normal mode
-autocmd! BufWritePost,BufReadPost * Neomake
-
 
 """"""""""""" DEOPLETE """""""""""""""
 let g:deoplete#enable_at_startup=1
@@ -137,18 +110,14 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 
 """"""""""""" VIM-JEDI """"""""""""""
-let g:python3_host_prog='C:\Users\Gianluca\AppData\Local\Programs\Python\Python310\python.exe'
-"autocmd FileType python call deoplete#disable()
+"let g:python3_host_prog='C:\Users\Gianluca\AppData\Local\Programs\Python\Python310\python.exe'
+let g:python3_host_prog='D:\Lavoro\python_virtual_envs\maestro\Scripts\python.exe'
 let g:jedi#completions_enabled = 0
 
 
 """""""""" NERD COMMENTER """"""""""""
 map <C-_> <leader>c<space>
-
-
-""""""""""""""" SUDA """""""""""""""""
-" :W sudo saves the file (useful for handling the permission-denied error)
-" cnoremap W w suda://%
+filetype plugin on
 
 
 """""""""" VIM INDENT LINE """""""""""
