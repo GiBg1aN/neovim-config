@@ -60,10 +60,6 @@ au TermOpen * setlocal nonumber norelativenumber
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.local/share/nvim/plugged')
 """"" Completion/Compilation
-Plug	'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug    'deoplete-plugins/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
-Plug    'davidhalter/jedi-vim', { 'do': ':UpdateRemotePlugins' }
-Plug    'deoplete-plugins/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
 Plug	'jiangmiao/auto-pairs'
 """"" Utility
 Plug    'simnalamburt/vim-mundo'
@@ -93,27 +89,6 @@ let g:lightline = {
 
 " Terminal cursor in normal mode
 hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
-
-""""""""""""" DEOPLETE """""""""""""""
-let g:deoplete#enable_at_startup=1
-
-" Disable completion for plain text/git files
-autocmd FileType text call deoplete#disable()
-autocmd FileType gitcommit call deoplete#disable()
-
-" <TAB> selection
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-endfunction
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-
-""""""""""""" VIM-JEDI """"""""""""""
-"let g:python3_host_prog='C:\Users\Gianluca\AppData\Local\Programs\Python\Python310\python.exe'
-let g:python3_host_prog='D:\Lavoro\python_virtual_envs\maestro\Scripts\python.exe'
-let g:jedi#completions_enabled = 0
-
 
 """""""""" NERD COMMENTER """"""""""""
 map <C-_> <leader>c<space>
